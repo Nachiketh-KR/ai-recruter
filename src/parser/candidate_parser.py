@@ -1,13 +1,25 @@
 import json
 
-from scoring.scoring_engine import (
-    calculate_skill_score,
-    experience_score,
-    recruitability_score,
-    activity_score,
-    domain_score,
-    final_score
-)
+# Use package-relative import when running as part of the `src` package,
+# but allow a top-level import fallback when running the file directly.
+try:
+    from ..scoring.scoring_engine import (
+        calculate_skill_score,
+        experience_score,
+        recruitability_score,
+        activity_score,
+        domain_score,
+        final_score
+    )
+except Exception:
+    from scoring.scoring_engine import (
+        calculate_skill_score,
+        experience_score,
+        recruitability_score,
+        activity_score,
+        domain_score,
+        final_score
+    )
 
 def load_candidates(file_path, limit=10):
     """
