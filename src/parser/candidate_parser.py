@@ -1,25 +1,21 @@
 import json
+import sys
+from pathlib import Path
 
-# Use package-relative import when running as part of the `src` package,
-# but allow a top-level import fallback when running the file directly.
-try:
-    from ..scoring.scoring_engine import (
-        calculate_skill_score,
-        experience_score,
-        recruitability_score,
-        activity_score,
-        domain_score,
-        final_score
-    )
-except Exception:
-    from scoring.scoring_engine import (
-        calculate_skill_score,
-        experience_score,
-        recruitability_score,
-        activity_score,
-        domain_score,
-        final_score
-    )
+# Ensure project root is on sys.path so `from src...` imports succeed when
+# running this file directly (e.g. `python src/parser/candidate_parser.py`).
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from src.scoring.scoring_engine import (
+    calculate_skill_score,
+    experience_score,
+    recruitability_score,
+    activity_score,
+    domain_score,
+    final_score
+)
 
 def load_candidates(file_path, limit=10):
     """
